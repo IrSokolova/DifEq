@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane nodeOrientation="LEFT_TO_RIGHT" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+    <tabs>
+        <Tab closable="false" text="Numerical methods">
+            <content>
+                <AnchorPane prefHeight="700" prefWidth="650">
+                    <children>
+                        <SplitPane dividerPositions="0.26740947075208915" layoutY="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <items>
+                                <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="188.0">
+                                    <children>
+                                        <AnchorPane prefHeight="158.0" prefWidth="188.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                            <children>
+                                                <Button fx:id="updateChart" alignment="CENTER" layoutX="62.0" layoutY="112.0" mnemonicParsing="false" onAction="#update" text="Update" />
+                                                <Label alignment="CENTER" layoutX="10.0" layoutY="64.0" prefHeight="0.0" prefWidth="16.0" text="x0" />
+                                                <Label alignment="CENTER" layoutX="105.0" layoutY="19.0" text="X" />
+                                                <TextField fx:id="Xfield" alignment="CENTER" layoutX="121.0" layoutY="14.0" prefHeight="27.0" prefWidth="59.0" />
+                                                <TextField alignment="CENTER" layoutX="31.0" layoutY="59.0" prefHeight="27.0" prefWidth="59.0" fx:id="x0field" />
+                                                <TextField fx:id="NField" alignment="CENTER" layoutX="31.0" layoutY="15.0" prefHeight="27.0" prefWidth="59.0" />
+                                                <Label alignment="CENTER" layoutX="13.0" layoutY="20.0" text="N" />
+                                                <TextField fx:id="y0field" alignment="CENTER" layoutX="120.0" layoutY="60.0" prefHeight="27.0" prefWidth="59.0" />
+                                                <Label alignment="CENTER" layoutX="102.0" layoutY="65.0" text="y0" />
+                                            </children>
+                                        </AnchorPane>
+                                        <GridPane prefHeight="117.0" prefWidth="141.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <children>
+                                                <Label text="Exact solution ">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="euLabel" text="Euler" GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="imLabel" text="Improved Euler" GridPane.rowIndex="2">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="rkLabel" text="Runge-Kutta" GridPane.rowIndex="3">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                                <CheckBox fx:id="exactCheckBox" mnemonicParsing="false" onAction="#buildExact" selected="true" GridPane.columnIndex="1" />
+                                                <CheckBox fx:id="eulerCheckBox" mnemonicParsing="false" onAction="#approxWithEuler" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <CheckBox fx:id="imprEulerCheckBox" mnemonicParsing="false" onAction="#approxWithImprovedEuler" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <CheckBox fx:id="rKuttaCheckBox" mnemonicParsing="false" onAction="#approxWithRungeKutta" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                            </children>
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.34508514404297" minWidth="10.0" prefWidth="126.66592407226562" />
+                                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="95.55457305908203" minWidth="10.0" prefWidth="27.334075927734375" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                        </GridPane>
+                                    </children>
+                                </AnchorPane>
+                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="260.0" prefWidth="522.0">
+                                    <items>
+                                        <LineChart fx:id="functionChart" layoutX="167.0" layoutY="1.0" legendSide="RIGHT" prefHeight="370.0" prefWidth="522.0" title="Functions" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="167.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="5.0">
+                                            <xAxis>
+                                                <NumberAxis forceZeroInRange="false" label="x" side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                                <NumberAxis label="y" side="LEFT" />
+                                            </yAxis>
+                                        </LineChart>
+                                    </items>
+                                </SplitPane>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+
+        <Tab closable="false" text="Local errors">
+            <content>
+                <AnchorPane prefHeight="700" prefWidth="650">
+                    <children>
+                        <SplitPane dividerPositions="0.26740947075208915" layoutY="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <items>
+                                <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="188.0">
+                                    <children>
+                                        <AnchorPane prefHeight="158.0" prefWidth="188.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                            <children>
+                                                <Button fx:id="updateLocalErrorChart" alignment="CENTER" layoutX="62.0" layoutY="112.0" mnemonicParsing="false" onAction="#updateLocalError" text="Update" />
+                                                <Label alignment="CENTER" layoutX="10.0" layoutY="64.0" prefHeight="0.0" prefWidth="16.0" text="x0" />
+                                                <Label alignment="CENTER" layoutX="105.0" layoutY="19.0" text="X" />
+                                                <TextField fx:id="Xfield1" alignment="CENTER" layoutX="121.0" layoutY="14.0" prefHeight="27.0" prefWidth="59.0" />
+                                                <TextField alignment="CENTER" layoutX="31.0" layoutY="59.0" prefHeight="27.0" prefWidth="59.0" fx:id="x0field1" />
+                                                <TextField fx:id="NField1" alignment="CENTER" layoutX="31.0" layoutY="15.0" prefHeight="27.0" prefWidth="59.0" />
+                                                <Label alignment="CENTER" layoutX="13.0" layoutY="20.0" text="N" />
+                                                <TextField fx:id="y0field1" alignment="CENTER" layoutX="120.0" layoutY="60.0" prefHeight="27.0" prefWidth="59.0" />
+                                                <Label alignment="CENTER" layoutX="102.0" layoutY="65.0" text="y0" />
+                                            </children>
+                                        </AnchorPane>
+                                        <GridPane prefHeight="117.0" prefWidth="141.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <children>
+                                                <Label fx:id="euErrorLabel" text="Euler" GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="imErrorLabel" text="Improved Euler" GridPane.rowIndex="2">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label fx:id="rkErrorLabel" text="Runge-Kutta" GridPane.rowIndex="3">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                                <CheckBox fx:id="eulerLocalCheckBox" mnemonicParsing="false" onAction="#buildLocalEulerError" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <CheckBox fx:id="imprEulerLocalCheckBox" mnemonicParsing="false" onAction="#buildLocalImpEulerError" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                                <CheckBox fx:id="rKuttaLocalCheckBox" mnemonicParsing="false" onAction="#buildLocalRKuttaError" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                            </children>
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.34508514404297" minWidth="10.0" prefWidth="126.66592407226562" />
+                                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="95.55457305908203" minWidth="10.0" prefWidth="27.334075927734375" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                        </GridPane>
+                                    </children>
+                                </AnchorPane>
+                                <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="260.0" prefWidth="522.0">
+                                    <items>
+                                        <LineChart fx:id="errorChart" layoutX="10.0" layoutY="10.0" legendSide="RIGHT" prefHeight="370.0" prefWidth="522.0" title="Errors">
+                                            <xAxis>
+                                                <NumberAxis forceZeroInRange="false" label="x" side="BOTTOM" />
+                                            </xAxis>
+                                            <yAxis>
+                                                <NumberAxis label="error" side="LEFT" />
+                                            </yAxis>
+                                        </LineChart>
+                                    </items>
+                                </SplitPane>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+
+        <Tab closable="false" text="Global Error from step dependencies">
+            <content>
+                <AnchorPane prefHeight="480.0" prefWidth="720.0">
+                    <children>
+                        <SplitPane dividerPositions="0.2674" layoutY="3.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                            <items>
+                                <AnchorPane maxWidth="-Infinity" minWidth="-Infinity" prefHeight="478.0" prefWidth="188.0">
+                                    <children>
+                                        <GridPane prefHeight="87.0" prefWidth="141.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+                                            <children>
+                                                <Label text="Euler">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label text="Improved Euler" GridPane.rowIndex="1">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                                <Label text="Runge-Kutta" GridPane.rowIndex="2">
+                                                    <font>
+                                                        <Font size="15.0" />
+                                                    </font>
+                                                </Label>
+                                                <CheckBox fx:id="eulerErrorCheckBox" mnemonicParsing="false" onAction="#buildEulerError" GridPane.columnIndex="1" />
+                                                <CheckBox fx:id="imprEulerErrorCheckBox" mnemonicParsing="false" onAction="#buildImpEulerError" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                                <CheckBox fx:id="rKuttaErrorCheckBox" mnemonicParsing="false" onAction="#buildRKuttaError" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                            </children>
+                                            <columnConstraints>
+                                                <ColumnConstraints hgrow="SOMETIMES" maxWidth="153.34508514404297" minWidth="10.0" prefWidth="126.66592407226562" />
+                                                <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="95.55457305908203" minWidth="10.0" prefWidth="27.334075927734375" />
+                                            </columnConstraints>
+                                            <rowConstraints>
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                            </rowConstraints>
+                                        </GridPane>
+                                        <Label layoutX="10.0" layoutY="125.0" text="N0" />
+                                        <Label layoutX="96.0" layoutY="126.0" text="N1" />
+                                        <TextField fx:id="N0Field" layoutX="35.0" layoutY="121.0" prefHeight="20.0" prefWidth="53.0" />
+                                        <TextField fx:id="N1Field" layoutX="118.0" layoutY="121.0" prefHeight="20.0" prefWidth="53.0" />
+                                        <Button fx:id="updateChart1" alignment="CENTER" layoutX="59.0" layoutY="164.0" mnemonicParsing="false" onAction="#updateError" text="Update" />
+                                    </children>
+                                </AnchorPane>
+                                <LineChart fx:id="errorDepChart" layoutX="167.0" layoutY="1.0" prefHeight="478.0" prefWidth="366.0" title="Errors" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="167.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="5.0">
+                                    <xAxis>
+                                        <NumberAxis forceZeroInRange="false" label="N" side="BOTTOM" />
+                                    </xAxis>
+                                    <yAxis>
+                                        <NumberAxis forceZeroInRange="false" label="error" side="LEFT" />
+                                    </yAxis>
+                                </LineChart>
+                            </items>
+                        </SplitPane>
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+    </tabs>
+</TabPane>
